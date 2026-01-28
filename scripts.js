@@ -140,18 +140,22 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 showToast('Logging in...', 'info');
-                const res = await fetch('/api/auth', {
+                
+                // Direct token exchange with GitHub
+                const response = await fetch('https://github.com/login/oauth/access_token', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ code })
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        client_id: CLIENT_ID,
+                        client_secret: '7ad593e4c5a2f0af15cfd3299fa6c3701b82a5d7',
+                        code: code,
+                    }),
                 });
                 
-                if (!res.ok) {
-                    const errorText = await res.text();
-                    throw new Error(`Server returned ${res.status}: ${errorText}`);
-                }
-                
-                const data = await res.json();
+                const data = await response.json();
                 if (data.access_token) {
                     accessToken = data.access_token;
                     sessionStorage.setItem('github_token', accessToken);
