@@ -145,6 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code })
                 });
+                
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    throw new Error(`Server returned ${res.status}: ${errorText}`);
+                }
+                
                 const data = await res.json();
                 if (data.access_token) {
                     accessToken = data.access_token;
@@ -155,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     showToast('Login failed: ' + (data.error_description || 'Unknown error'), 'error');
                 }
             } catch (err) {
-                console.error('Auth failed:', err);
-                showToast('Auth system offline', 'error');
+                console.error('Auth failed details:', err);
+                showToast('Auth system error: ' + err.message, 'error');
             }
         }
     };
