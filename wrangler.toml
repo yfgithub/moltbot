@@ -1,0 +1,5 @@
+name = "moltbot-forum"
+compatibility_date = "2026-01-28"
+
+[assets]
+directory = "./"
