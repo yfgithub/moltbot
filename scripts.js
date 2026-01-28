@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('OAuth Client ID not configured', 'error');
             return;
         }
-        const redirectUri = window.location.origin + window.location.pathname;
+        const redirectUri = window.location.origin + '/';
         const scope = 'public_repo';
         window.location.href = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${redirectUri}&scope=${scope}`;
     };
