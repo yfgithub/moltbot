@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moltbot Forum | The AI Agent Community Hub</title>
-    <meta name="description" content="The official community forum for Moltbot. Discuss plugins, share guides, and connect with other users of the self-hosted AI assistant.">
+    <title>Moltbot - Your Self-Hosted AI Assistant</title>
+    <meta name="description" content="Moltbot is a powerful, privacy-first, self-hosted AI assistant with an extensible plugin system. Get started in minutes.">
     
-    <!-- Open Graph / Social Media -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Moltbot Forum - The AI Agent Community">
-    <meta property="og:description" content="Connect with Moltbot users, share plugins, and find guides.">
-    <meta property="og:image" content="images/forum_mockup.png">
+    <meta property="og:title" content="Moltbot - Your Self-Hosted AI Assistant">
+    <meta property="og:description" content="Privacy-first AI assistant with powerful plugins. Self-hosted and fully customizable.">
+    <meta property="og:image" content="images/mascot.png">
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Navigation -->
     <header>
         <div class="container">
             <nav>
@@ -30,104 +31,150 @@
                             </linearGradient>
                         </defs>
                     </svg>
-                    MOLTBOT Hub
+                    MOLTBOT
                 </a>
                 <div class="nav-links">
-                    <a href="index.html" class="nav-item" data-category="all">Discussions</a>
-                    <a href="index.html" class="nav-item" data-category="Showcase">Showcase</a>
-                    <a href="index.html" class="nav-item" data-category="Guides">Guides</a>
-                    <div id="auth-container" style="display: inline-block; margin-left: 1rem;">
-                        <button id="login-btn" class="btn" style="padding: 0.5rem 1.2rem; background: var(--glass); border: 1px solid var(--glass-border); color: white;">Login with GitHub</button>
-                    </div>
+                    <a href="#features">Features</a>
+                    <a href="#install">Install</a>
+                    <a href="#tutorials">Tutorials</a>
+                    <a href="https://github.com/yfgithub/moltbot" class="btn btn-primary" style="padding: 0.5rem 1.5rem;">GitHub</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <main class="container">
-        <div class="forum-container">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="sidebar-menu">
-                    <h3>Categories</h3>
-                    <a href="#" class="category-item active" data-category="all">General Discussion</a>
-                    <a href="#" class="category-item" data-category="Showcase">Showcase</a>
-                    <a href="#" class="category-item" data-category="Technical Support">Technical Support</a>
-                    <a href="#" class="category-item" data-category="Plugin Development">Plugin Development</a>
-                    <a href="#" class="category-item" data-category="Announcements">Announcements</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Self-Hosted AI Assistant</h1>
+                <p class="hero-subtitle">Privacy-first, powerful, and fully customizable. Moltbot puts you in control of your AI experience.</p>
+                <div class="hero-cta">
+                    <a href="#install" class="btn btn-primary btn-large">Quick Start</a>
+                    <a href="https://github.com/yfgithub/moltbot" class="btn btn-secondary btn-large">⭐ Star on GitHub</a>
                 </div>
-                
-                <div class="sidebar-menu" style="margin-top: 1.5rem;">
-                    <h3>Resources</h3>
-                    <a href="https://molt.bot" class="category-item" target="_blank">📚 Official Docs</a>
-                    <a href="https://github.com/moltbot" class="category-item" target="_blank">💻 GitHub Repo</a>
-                    <a href="#" class="category-item">⚖️ Discord Server</a>
-                </div>
-            </aside>
+            </div>
+        </div>
+    </section>
 
-            <!-- Main Content -->
-            <section class="main-content">
-                <div class="forum-header">
-                    <h2>Recent Discussions</h2>
-                    <div style="display: flex; gap: 1rem;">
-                        <input type="text" id="search-input" class="search-bar" placeholder="Search threads...">
-                        <button id="new-post-btn" class="btn btn-primary" style="padding: 0.75rem 1.5rem; border: none;">New Post</button>
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Moltbot?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>Fully self-hosted. Your data stays on your infrastructure, under your control.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Extensible Plugins</h3>
+                    <p>Rich plugin ecosystem. Customize and extend functionality to match your workflow.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>High Performance</h3>
+                    <p>Built with modern tech stack. Fast, responsive, and reliable.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Easy to Use</h3>
+                    <p>Clean interface, simple setup. Get started in minutes, not hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="install" class="installation">
+        <div class="container">
+            <h2 class="section-title">Get Started in Minutes</h2>
+            <div class="install-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Install Dependencies</h3>
+                        <p>Make sure you have Node.js 18+ and npm installed</p>
                     </div>
                 </div>
-
-                <div id="thread-list" class="thread-list">
-                    <!-- Skeletons will be shown here by default -->
-                    <div class="thread-card skeleton-item">
-                        <div class="skeleton skeleton-avatar"></div>
-                        <div class="thread-content">
-                            <div class="skeleton skeleton-text" style="width: 30%;"></div>
-                            <div class="skeleton skeleton-title"></div>
-                            <div class="skeleton skeleton-text" style="width: 20%;"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install Moltbot</h3>
+                        <div class="code-block">
+                            <code id="install-cmd">npm install -g moltbot</code>
+                            <button class="copy-btn" onclick="copyToClipboard('install-cmd')">Copy</button>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-    </main>
-
-    <footer class="container">
-        <p>&copy; 2026 Moltbot Forum Community. Not affiliated with Anthropic.</p>
-        <p style="margin-top: 1rem; font-size: 0.8rem;">moltbot.forum is the central hub for the Moltbot ecosystem.</p>
-    </footer>
-
-    <!-- Post Modal -->
-    <div id="post-modal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Create New Discussion</h2>
-                <button id="close-modal" class="close-btn">&times;</button>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Start Moltbot</h3>
+                        <div class="code-block">
+                            <code id="start-cmd">moltbot start</code>
+                            <button class="copy-btn" onclick="copyToClipboard('start-cmd')">Copy</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <form id="new-post-form">
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" id="post-title" placeholder="A descriptive title..." required>
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select id="post-category" required>
-                        <option value="DIC_kwDORC6DUM4C1hlU">General</option>
-                        <option value="Showcase">Showcase</option>
-                        <option value="Technical Support">Support</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Body (Markdown supported)</label>
-                    <textarea id="post-body" rows="8" placeholder="Share your thoughts, data, or questions..." required></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" id="submit-post-btn" class="btn btn-primary">Publish Discussion</button>
-                </div>
-            </form>
         </div>
-    </div>
+    </section>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
+    <!-- Video Tutorials Section -->
+    <section id="tutorials" class="tutorials">
+        <div class="container">
+            <h2 class="section-title">Video Tutorials</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        <p>📹 Installation Guide</p>
+                        <small>YouTube video will be embedded here</small>
+                    </div>
+                    <h3>Quick Installation</h3>
+                    <p>Learn how to install and configure Moltbot in under 5 minutes.</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        <p>📹 Getting Started</p>
+                        <small>YouTube video will be embedded here</small>
+                    </div>
+                    <h3>Basic Usage</h3>
+                    <p>Discover the core features and how to interact with your AI assistant.</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-placeholder">
+                        <p>📹 Advanced Features</p>
+                        <small>YouTube video will be embedded here</small>
+                    </div>
+                    <h3>Plugin System</h3>
+                    <p>Master the plugin ecosystem and customize Moltbot to your needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Moltbot</h4>
+                <p>Your privacy-first AI assistant</p>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="https://github.com/yfgithub/moltbot">GitHub</a>
+                <a href="https://github.com/yfgithub/moltbot/wiki">Documentation</a>
+            </div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <a href="https://github.com/yfgithub/moltbot/discussions">Discussions</a>
+                <a href="https://github.com/yfgithub/moltbot/issues">Issues</a>
+            </div>
+        </div>
+        <p style="margin-top: 2rem; text-align: center; color: var(--text-muted);">&copy; 2026 Moltbot. Open Source Project.</p>
+    </footer>
 
     <script src="scripts.js"></script>
 </body>
