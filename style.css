@@ -145,10 +145,11 @@ nav {
     animation: heroBrandFade 1s ease-out;
 }
 
-.hero-mascot-img {
-    width: 80px;
-    height: auto;
-    filter: drop-shadow(0 0 15px rgba(255, 77, 77, 0.4));
+.hero-mascot-svg {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 0 20px rgba(255, 77, 77, 0.4));
+    margin-bottom: 0.5rem;
 }
 
 .hero-brand-name {
