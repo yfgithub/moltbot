@@ -136,11 +136,42 @@ nav {
     z-index: 10;
 }
 
-.hero-logo {
-    max-width: 300px;
-    height: auto;
+.hero-brand-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
     margin-bottom: 2rem;
-    filter: drop-shadow(0 0 20px rgba(255, 77, 77, 0.3));
+    animation: heroBrandFade 1s ease-out;
+}
+
+.hero-mascot-img {
+    width: 80px;
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(255, 77, 77, 0.4));
+}
+
+.hero-brand-name {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #fff 0%, #ff4d4d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes heroBrandFade {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-content h1 {
@@ -489,6 +520,7 @@ footer {
         flex-direction: column;
     }
 }
+
 /* Utilities */
 .hidden {
     display: none !important;
