@@ -140,15 +140,16 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
-    margin-bottom: 3.5rem;
+    gap: 0rem;
+    margin-bottom: 2rem;
     animation: heroBrandFade 1s ease-out;
 }
 
 .hero-mascot-svg {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     filter: drop-shadow(0 0 20px rgba(255, 77, 77, 0.4));
+    margin-bottom: -1rem;
 }
 
 /* Mascot Claw Animation */
@@ -187,16 +188,18 @@ nav {
 }
 
 .hero-brand-name {
-    font-size: 2.5rem;
-    font-weight: 900;
-    letter-spacing: -1px;
-    background: linear-gradient(90deg, #fff, #ff4d4d, #fff);
-    background-size: 200% auto;
+    font-size: 7rem;
+    font-weight: 950;
+    letter-spacing: -4px;
+    background: linear-gradient(90deg, #ff4d4d, #fff, #4deeff, #4deeff);
+    background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
-    animation: gradientFlow 4s linear infinite;
+    margin-bottom: -0.5rem;
+    line-height: 1;
+    animation: gradientFlow 5s linear infinite;
+    filter: drop-shadow(0 0 30px rgba(255, 77, 77, 0.2));
 }
 
 @keyframes heroBrandFade {
@@ -212,18 +215,17 @@ nav {
 }
 
 .hero-content h1 {
-    font-size: 5rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-    letter-spacing: -3px;
-    line-height: 1.1;
-    background: linear-gradient(90deg, var(--text-primary), var(--accent), var(--text-primary));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradientFlow 6s linear infinite;
-    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    opacity: 0.9;
+    text-shadow: none;
+    background: none;
+    -webkit-text-fill-color: initial;
+    animation: none;
 }
 
 @keyframes gradientFlow {
