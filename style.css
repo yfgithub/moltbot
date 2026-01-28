@@ -84,13 +84,19 @@ nav {
 }
 
 .btn-primary {
-    background: var(--accent);
-    color: white;
+    background: linear-gradient(90deg, #ff4d4d, #9c27b0, #00e5ff, #ff4d4d);
+    background-size: 300% auto;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+    animation: gradientFlow 4s linear infinite;
 }
 
 .btn-primary:hover {
-    background: #ff3333;
     transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 77, 77, 0.5);
+    filter: brightness(1.1);
 }
 
 .btn-secondary {
