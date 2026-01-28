@@ -133,16 +133,59 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const checkAuthCallback = async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        if (code && !accessToken) {
-            window.history.replaceState({}, document.title, window.location.pathname);
+        // Device Flow doesn't use callbacks, so this is now a no-op
+        // We'll handle auth through the login button instead
+    };
+
+    const handleLogin = async () => {
+        if (!CLIENT_ID) {
+            showToast('OAuth Client ID not configured', 'error');
+            return;
+        }
+
+        try {
+            showToast('Initiating login...', 'info');
             
-            try {
-                showToast('Logging in...', 'info');
+            // Step 1: Request device code
+            const deviceResponse = await fetch('https://github.com/login/device/code', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    client_id: CLIENT_ID,
+                    scope: 'public_repo'
+                })
+            });
+            
+            const deviceData = await deviceResponse.json();
+            
+            if (deviceData.device_code) {
+                // Show user code and open GitHub
+                const userCode = deviceData.user_code;
+                const verificationUri = deviceData.verification_uri;
                 
-                // Direct token exchange with GitHub
-                const response = await fetch('https://github.com/login/oauth/access_token', {
+                showToast(`Code: ${userCode} - Opening GitHub...`, 'info');
+                
+                // Open GitHub in new tab
+                window.open(verificationUri, '_blank');
+                
+                // Step 2: Poll for access token
+                pollForToken(deviceData.device_code, deviceData.interval || 5);
+            } else {
+                throw new Error('Failed to get device code');
+            }
+        } catch (err) {
+            console.error('Device flow failed:', err);
+            showToast('Login failed: ' + err.message, 'error');
+        }
+    };
+
+    const pollForToken = async (deviceCode, interval) => {
+        const poll = async () => {
+            try {
+                const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -150,35 +193,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({
                         client_id: CLIENT_ID,
-                        client_secret: '7ad593e4c5a2f0af15cfd3299fa6c3701b82a5d7',
-                        code: code,
-                    }),
+                        device_code: deviceCode,
+                        grant_type: 'urn:ietf:params:oauth:grant-type:device_code'
+                    })
                 });
                 
-                const data = await response.json();
+                const data = await tokenResponse.json();
+                
                 if (data.access_token) {
                     accessToken = data.access_token;
                     sessionStorage.setItem('github_token', accessToken);
-                    updateAuthUI();
+                    await updateAuthUI();
                     showToast('Successfully logged in!');
+                } else if (data.error === 'authorization_pending') {
+                    // User hasn't authorized yet, keep polling
+                    setTimeout(poll, interval * 1000);
+                } else if (data.error === 'slow_down') {
+                    // We're polling too fast
+                    setTimeout(poll, (interval + 5) * 1000);
                 } else {
-                    showToast('Login failed: ' + (data.error_description || 'Unknown error'), 'error');
+                    throw new Error(data.error_description || data.error || 'Unknown error');
                 }
             } catch (err) {
-                console.error('Auth failed details:', err);
-                showToast('Auth system error: ' + err.message, 'error');
+                console.error('Token polling failed:', err);
+                showToast('Login failed: ' + err.message, 'error');
             }
-        }
-    };
-
-    const handleLogin = () => {
-        if (!CLIENT_ID) {
-            showToast('OAuth Client ID not configured', 'error');
-            return;
-        }
-        const redirectUri = window.location.origin + '/';
-        const scope = 'public_repo';
-        window.location.href = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${redirectUri}&scope=${scope}`;
+        };
+        
+        poll();
     };
 
     // Modal Handlers
