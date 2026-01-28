@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moltbot Forum | The AI Agent Community Hub</title>
+    <meta name="description" content="The official community forum for Moltbot. Discuss plugins, share guides, and connect with other users of the self-hosted AI assistant.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px;">
+                        <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#lobster-gradient)"></path>
+                        <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#lobster-gradient)"></path>
+                        <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#lobster-gradient)"></path>
+                        <defs>
+                            <linearGradient id="lobster-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff4d4d"></stop>
+                                <stop offset="100%" stop-color="#991b1b"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    MOLTBOT Hub
+                </a>
+                <div class="nav-links">
+                    <a href="#">Discussions</a>
+                    <a href="#">Showcase</a>
+                    <a href="#">Guides</a>
+                    <a href="https://molt.bot" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Official Site</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="forum-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-menu">
+                    <h3>Categories</h3>
+                    <a href="#" class="category-item active">General Discussion</a>
+                    <a href="#" class="category-item">Showcase</a>
+                    <a href="#" class="category-item">Technical Support</a>
+                    <a href="#" class="category-item">Plugin Development</a>
+                    <a href="#" class="category-item">Announcements</a>
+                </div>
+                
+                <div class="sidebar-menu" style="margin-top: 1.5rem;">
+                    <h3>Resources</h3>
+                    <a href="https://molt.bot" class="category-item">Official Documentation</a>
+                    <a href="https://github.com/moltbot" class="category-item">GitHub Repository</a>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="main-content">
+                <div class="forum-header">
+                    <h2>Recent Discussions</h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" class="search-bar" placeholder="Search threads...">
+                        <button class="btn btn-primary" style="padding: 0.75rem 1.5rem; border: none;">New Post</button>
+                    </div>
+                </div>
+
+                <div class="thread-list">
+                    <!-- Thread Item 1 -->
+                    <div class="thread-card">
+                        <div class="user-avatar">
+                            <img src="images/mascot.png" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="thread-content">
+                            <div class="thread-meta">
+                                <span>u/MoltMaster</span> • <span>2 hours ago</span>
+                            </div>
+                            <div class="thread-title">Moltbot v2.0 Roadmap: What&apos;s coming next?</div>
+                            <div class="thread-tags">
+                                <span class="tag">#Official</span>
+                                <span class="tag">#Roadmap</span>
+                            </div>
+                        </div>
+                        <div class="thread-stats">
+                            <span>💬 24</span>
+                            <span>🔥 156</span>
+                        </div>
+                    </div>
+
+                    <!-- Thread Item 2 -->
+                    <div class="thread-card">
+                        <div class="user-avatar" style="background: #334155; border-color: #94a3b8;"></div>
+                        <div class="thread-content">
+                            <div class="thread-meta">
+                                <span>u/PluginDev</span> • <span>5 hours ago</span>
+                            </div>
+                            <div class="thread-title">New Plugin: Multi-Agent coordination for marketing teams</div>
+                            <div class="thread-tags">
+                                <span class="tag">#Showcase</span>
+                                <span class="tag">#Plugins</span>
+                            </div>
+                        </div>
+                        <div class="thread-stats">
+                            <span>💬 12</span>
+                            <span>🔥 89</span>
+                        </div>
+                    </div>
+
+                    <!-- Thread Item 3 -->
+                    <div class="thread-card">
+                        <div class="user-avatar" style="background: #334155; border-color: #94a3b8;"></div>
+                        <div class="thread-content">
+                            <div class="thread-meta">
+                                <span>u/ClawdLegacy</span> • <span>8 hours ago</span>
+                            </div>
+                            <div class="thread-title">Transitioning from Clawdbot to Moltbot: A quick migration guide</div>
+                            <div class="thread-tags">
+                                <span class="tag">#Guides</span>
+                            </div>
+                        </div>
+                        <div class="thread-stats">
+                            <span>💬 45</span>
+                            <span>🔥 312</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Community Mockup Image -->
+                    <div style="margin-top: 2rem;">
+                        <img src="images/forum_mockup.png" alt="Community Vision" style="width: 100%; border-radius: 20px; border: 1px solid var(--glass-border);">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2026 Moltbot Forum Community. Not affiliated with Anthropic.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">moltbot.forum is the central hub for the Moltbot ecosystem.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
