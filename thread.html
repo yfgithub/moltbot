@@ -27,8 +27,8 @@
                 </a>
                 <div class="nav-links">
                     <a href="index.html">Discussions</a>
-                    <a href="#">Showcase</a>
-                    <a href="#">Guides</a>
+                    <a href="index.html?cat=Showcase">Showcase</a>
+                    <a href="index.html?cat=Guides">Guides</a>
                     <a href="https://molt.bot" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Official Site</a>
                 </div>
             </nav>
@@ -46,18 +46,23 @@
             </a>
 
             <!-- Thread Header -->
-            <div class="thread-header-detail">
+            <div class="thread-header-detail" id="thread-header">
                 <div class="thread-meta-detail">
                     <div class="user-avatar" id="thread-avatar">
-                        <img src="images/mascot.png" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+                        <!-- Skeleton for avatar -->
+                        <div class="skeleton skeleton-avatar"></div>
                     </div>
                     <div>
-                        <span id="thread-author">u/MoltMaster</span> • <span id="thread-time">2 hours ago</span>
+                        <span id="thread-author" class="skeleton skeleton-text" style="width: 100px; display: inline-block;"></span> 
+                        • <span id="thread-time" class="skeleton skeleton-text" style="width: 80px; display: inline-block;"></span>
                     </div>
                 </div>
-                <h1 id="thread-title-display">Loading thread...</h1>
+                <h1 id="thread-title-display">
+                    <div class="skeleton skeleton-title"></div>
+                </h1>
                 <div class="thread-tags" id="thread-tags-display">
-                    <span class="tag">#Official</span>
+                    <!-- Skeletons for tags -->
+                    <div class="skeleton" style="width: 60px; height: 20px; border-radius: 99px; display: inline-block;"></div>
                 </div>
             </div>
 
@@ -121,25 +126,52 @@
         // Load thread data
         if (threadId && threads[threadId]) {
             const thread = threads[threadId];
-            document.getElementById('thread-title').textContent = thread.title + ' | Moltbot Forum';
-            document.getElementById('thread-title-display').textContent = thread.title;
-            document.getElementById('thread-author').textContent = thread.author;
-            document.getElementById('thread-time').textContent = thread.time;
             
-            // Update tags
-            const tagsContainer = document.getElementById('thread-tags-display');
-            tagsContainer.innerHTML = thread.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-            
-            // Update avatar
-            const avatarEl = document.getElementById('thread-avatar');
-            if (thread.avatar) {
-                avatarEl.innerHTML = `<img src="${thread.avatar}" alt="User" style="width: 100%; height: 100%; object-fit: cover;">`;
-            } else {
-                avatarEl.style.background = '#334155';
-                avatarEl.style.borderColor = '#94a3b8';
-            }
+            // Simulate loading delay
+            setTimeout(() => {
+                document.getElementById('thread-title').textContent = thread.title + ' | Moltbot Forum';
+                
+                // Author and Time
+                const authorEl = document.getElementById('thread-author');
+                authorEl.classList.remove('skeleton', 'skeleton-text');
+                authorEl.style.width = 'auto';
+                authorEl.textContent = thread.author;
+                
+                const timeEl = document.getElementById('thread-time');
+                timeEl.classList.remove('skeleton', 'skeleton-text');
+                timeEl.style.width = 'auto';
+                timeEl.textContent = thread.time;
+
+                // Title Display
+                const titleDisplay = document.getElementById('thread-title-display');
+                titleDisplay.innerHTML = thread.title;
+
+                // Update tags
+                const tagsContainer = document.getElementById('thread-tags-display');
+                tagsContainer.innerHTML = thread.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                
+                // Update avatar
+                const avatarEl = document.getElementById('thread-avatar');
+                avatarEl.innerHTML = '';
+                if (thread.avatar) {
+                    avatarEl.innerHTML = `<img src="${thread.avatar}" alt="User" style="width: 100%; height: 100%; object-fit: cover;">`;
+                } else {
+                    avatarEl.style.background = '#334155';
+                    avatarEl.style.borderColor = '#94a3b8';
+                }
+                
+                // Fade in header
+                const header = document.getElementById('thread-header');
+                header.style.opacity = '0';
+                header.style.transform = 'translateY(10px)';
+                header.style.transition = 'all 0.5s ease';
+                setTimeout(() => {
+                    header.style.opacity = '1';
+                    header.style.transform = 'translateY(0)';
+                }, 50);
+            }, 800);
         } else {
-            document.getElementById('thread-title-display').textContent = 'Thread not found';
+            document.getElementById('thread-title-display').innerHTML = '<div class="empty-state">Thread not found</div>';
         }
     </script>
 </body>

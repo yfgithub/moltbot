@@ -472,9 +472,55 @@ footer {
     --giscus-bg-primary: transparent;
     --giscus-bg-secondary: rgba(136, 146, 176, 0.05);
     --giscus-text-primary: #f0f4ff;
-    --giscus-text-secondary: #8892b0;
-    --giscus-border: rgba(136, 146, 176, 0.15);
-    --giscus-accent: #ff4d4d;
+}
+
+/* Skeleton Loader */
+.skeleton {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0.05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 12px;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.skeleton-title {
+    height: 24px;
+    margin-bottom: 16px;
+    width: 80%;
+}
+
+.skeleton-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+}
+
+.hidden {
+    display: none !important;
 }
 
 @media (max-width: 768px) {
