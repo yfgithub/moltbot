@@ -31,6 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'all 0.6s ease';
         observer.observe(el);
     });
+    // Terminal Tab Switching
+    document.querySelectorAll('.terminal-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active classes
+            document.querySelectorAll('.terminal-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.terminal-body').forEach(b => b.classList.add('hidden'));
+            
+            // Add active class
+            tab.classList.add('active');
+            const targetBody = document.getElementById(`tab-${tab.dataset.tab}`);
+            if (targetBody) targetBody.classList.remove('hidden');
+        });
+    });
 });
 
 // Copy to clipboard function
@@ -38,19 +51,18 @@ function copyToClipboard(elementId) {
     const element = document.getElementById(elementId);
     const text = element.textContent;
     
+    // Fallback for svg button context
+    const button = event.currentTarget;
+    
     navigator.clipboard.writeText(text).then(() => {
-        // Find the button that was clicked
-        const button = event.target;
-        const originalText = button.textContent;
+        const svg = button.querySelector('svg');
+        const originalStroke = svg.style.stroke;
         
-        // Show feedback
-        button.textContent = 'Copied!';
-        button.style.background = 'var(--secondary-accent)';
+        svg.style.stroke = '#27c93f';
         
         // Reset after 2 seconds
         setTimeout(() => {
-            button.textContent = originalText;
-            button.style.background = '';
+            svg.style.stroke = originalStroke;
         }, 2000);
     }).catch(err => {
         console.error('Failed to copy:', err);
