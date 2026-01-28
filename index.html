@@ -125,14 +125,45 @@
                 </div>
                 <div class="terminal-body hidden" id="tab-npm">
                     <div class="terminal-content">
-                        <span class="comment"># Classic npm installation</span>
+                        <span class="comment"># Install Moltbot</span>
                         <div class="command-line">
                             <span class="prompt">$</span>
-                            <code id="terminal-cmd-npm">npm install -g moltbot</code>
+                            <code id="terminal-cmd-npm">npm i -g clawdbot</code>
                             <button class="terminal-copy" onclick="copyToClipboard('terminal-cmd-npm')">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                             </button>
                         </div>
+                        <span class="comment" style="margin-top: 1.5rem;"># Meet your lobster</span>
+                        <div class="command-line">
+                            <span class="prompt">$</span>
+                            <code id="terminal-cmd-npm-start">clawdbot onboard</code>
+                            <button class="terminal-copy" onclick="copyToClipboard('terminal-cmd-npm-start')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="terminal-body hidden" id="tab-hackable">
+                    <div class="terminal-content">
+                        <span class="comment"># For those who read source code for fun</span>
+                        <div class="command-line">
+                            <span class="prompt">$</span>
+                            <code id="terminal-cmd-git">curl -fsSL https://molt.bot/install.sh | bash -s -- --install-method git</code>
+                            <button class="terminal-copy" onclick="copyToClipboard('terminal-cmd-git')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="terminal-body hidden" id="tab-macos">
+                    <div class="terminal-content" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2rem 0;">
+                        <h3 style="color: #fff; margin-bottom: 1rem;">Companion App (Beta)</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 400px;">Menubar access to your lobster. Works great alongside the CLI.</p>
+                        <a href="https://github.com/moltbot/moltbot/releases/tag/v2026.1.24" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4M7 10l5 5 5-5M12 15V3"/></svg>
+                            Download for macOS
+                        </a>
+                        <p style="color: #444; margin-top: 1.5rem; font-size: 0.8rem;">Requires macOS 14+ · Universal Binary</p>
                     </div>
                 </div>
             </div>
