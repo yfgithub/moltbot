@@ -482,3 +482,7 @@ footer {
         flex-direction: column;
     }
 }
+/* Utilities */
+.hidden {
+    display: none !important;
+}
