@@ -36,7 +36,9 @@
                     <a href="index.html" class="nav-item" data-category="all">Discussions</a>
                     <a href="index.html" class="nav-item" data-category="Showcase">Showcase</a>
                     <a href="index.html" class="nav-item" data-category="Guides">Guides</a>
-                    <a href="https://molt.bot" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Official Site</a>
+                    <div id="auth-container" style="display: inline-block; margin-left: 1rem;">
+                        <button id="login-btn" class="btn" style="padding: 0.5rem 1.2rem; background: var(--glass); border: 1px solid var(--glass-border); color: white;">Login with GitHub</button>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -92,6 +94,40 @@
         <p>&copy; 2026 Moltbot Forum Community. Not affiliated with Anthropic.</p>
         <p style="margin-top: 1rem; font-size: 0.8rem;">moltbot.forum is the central hub for the Moltbot ecosystem.</p>
     </footer>
+
+    <!-- Post Modal -->
+    <div id="post-modal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Discussion</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <form id="new-post-form">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="post-title" placeholder="A descriptive title..." required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="post-category" required>
+                        <option value="DIC_kwDORC6DUM4C1hlU">General</option>
+                        <option value="Showcase">Showcase</option>
+                        <option value="Technical Support">Support</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Body (Markdown supported)</label>
+                    <textarea id="post-body" rows="8" placeholder="Share your thoughts, data, or questions..." required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="submit-post-btn" class="btn btn-primary">Publish Discussion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
     <script src="scripts.js"></script>
 </body>

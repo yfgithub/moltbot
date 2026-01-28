@@ -43,12 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const categoryItems = document.querySelectorAll('.category-item');
     const newPostBtn = document.getElementById('new-post-btn');
+    const loginBtn = document.getElementById('login-btn');
+    const authContainer = document.getElementById('auth-container');
+    const postModal = document.getElementById('post-modal');
+    const closeModal = document.getElementById('close-modal');
+    const newPostForm = document.getElementById('new-post-form');
 
     let currentCategory = 'all';
     let searchQuery = '';
+    let accessToken = sessionStorage.getItem('github_token');
+
+    // GitHub OAuth Config
+    const CLIENT_ID = 'Ov23liEwLDCRc8ujnQw6';
 
     // Initialize Forum
     const initForum = () => {
+        checkAuthCallback();
+        updateAuthUI();
+
         // Handle URL parameters for category filtering
         const urlParams = new URLSearchParams(window.location.search);
         const catParam = urlParams.get('cat');
@@ -70,10 +82,159 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (newPostBtn) {
             newPostBtn.onclick = () => {
-                window.open(`https://github.com/${REPO_OWNER}/${REPO_NAME}/discussions/new/choose`, '_blank');
+                if (accessToken) {
+                    if (postModal) postModal.style.display = 'block';
+                } else {
+                    window.open(`https://github.com/${REPO_OWNER}/${REPO_NAME}/discussions/new/choose`, '_blank');
+                }
             };
         }
     };
+
+    const updateAuthUI = async () => {
+        if (!authContainer) return;
+        if (accessToken) {
+            try {
+                const res = await fetch('https://api.github.com/user', {
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
+                });
+                const user = await res.json();
+                
+                authContainer.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <img src="${user.avatar_url}" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--accent);">
+                        <span style="font-size: 0.85rem; font-weight: 500;">${user.login}</span>
+                        <button id="logout-btn" class="btn" style="padding: 0.4rem 1rem; font-size: 0.8rem; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border);">Logout</button>
+                    </div>
+                `;
+                document.getElementById('logout-btn').onclick = () => {
+                    sessionStorage.removeItem('github_token');
+                    window.location.reload();
+                };
+            } catch (err) {
+                console.error('Failed to fetch user:', err);
+                sessionStorage.removeItem('github_token');
+                updateAuthUI();
+            }
+        } else {
+            authContainer.innerHTML = `<button id="login-btn" class="btn" style="padding: 0.5rem 1.2rem; background: var(--glass); border: 1px solid var(--glass-border); color: white;">Login with GitHub</button>`;
+            document.getElementById('login-btn').onclick = handleLogin;
+        }
+    };
+
+    const showToast = (message, type = 'success') => {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.className = `toast show ${type}`;
+        setTimeout(() => {
+            toast.className = 'toast';
+        }, 3000);
+    };
+
+    const checkAuthCallback = async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        if (code && !accessToken) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            try {
+                showToast('Logging in...', 'info');
+                const res = await fetch('/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                const data = await res.json();
+                if (data.access_token) {
+                    accessToken = data.access_token;
+                    sessionStorage.setItem('github_token', accessToken);
+                    updateAuthUI();
+                    showToast('Successfully logged in!');
+                } else {
+                    showToast('Login failed: ' + (data.error_description || 'Unknown error'), 'error');
+                }
+            } catch (err) {
+                console.error('Auth failed:', err);
+                showToast('Auth system offline', 'error');
+            }
+        }
+    };
+
+    const handleLogin = () => {
+        if (!CLIENT_ID) {
+            showToast('OAuth Client ID not configured', 'error');
+            return;
+        }
+        const redirectUri = window.location.origin + window.location.pathname;
+        const scope = 'public_repo';
+        window.location.href = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${redirectUri}&scope=${scope}`;
+    };
+
+    // Modal Handlers
+    if (closeModal) {
+        closeModal.onclick = () => { if (postModal) postModal.style.display = 'none'; };
+    }
+    
+    window.onclick = (event) => {
+        if (event.target == postModal) {
+            if (postModal) postModal.style.display = 'none';
+        }
+    };
+
+    if (newPostForm) {
+        newPostForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-post-btn');
+            const title = document.getElementById('post-title').value;
+            const body = document.getElementById('post-body').value;
+            const categoryId = document.getElementById('post-category').value;
+
+            if (!accessToken) return;
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Publishing...';
+
+            try {
+                const REPO_ID = 'R_kgDORC6DUA'; 
+
+                const query = `
+                    mutation($repoId: ID!, $title: String!, $body: String!, $categoryId: ID!) {
+                        createDiscussion(input: {repositoryId: $repoId, title: $title, body: $body, categoryId: $categoryId}) {
+                            discussion {
+                                url
+                            }
+                        }
+                    }
+                `;
+
+                const res = await fetch('https://api.github.com/graphql', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        query,
+                        variables: { repoId: REPO_ID, title, body, categoryId }
+                    })
+                });
+
+                const result = await res.json();
+                if (result.data) {
+                    showToast('Post published successfully!');
+                    setTimeout(() => window.location.reload(), 2000);
+                } else {
+                    throw new Error(result.errors?.[0]?.message || 'Failed to publish');
+                }
+            } catch (err) {
+                showToast('Error: ' + err.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Publish Discussion';
+            }
+        };
+    }
 
     const renderThreads = () => {
         if (!threadList) return;
