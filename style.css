@@ -390,3 +390,103 @@ footer {
         display: none;
     }
 }
+
+/* Thread Detail Page */
+.thread-detail-container {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s;
+}
+
+.back-button:hover {
+    color: var(--accent);
+    transform: translateX(-5px);
+}
+
+.thread-header-detail {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.thread-meta-detail {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.thread-meta-detail .user-avatar {
+    width: 56px;
+    height: 56px;
+}
+
+.thread-meta-detail span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.thread-header-detail h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.thread-header-detail .thread-tags {
+    margin-top: 1rem;
+}
+
+/* Giscus Container */
+.giscus-container {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    min-height: 400px;
+}
+
+/* Giscus Dark Theme Customization */
+.giscus,
+.giscus-frame {
+    width: 100%;
+}
+
+/* Override Giscus styles to match our theme */
+:root {
+    --giscus-bg-primary: transparent;
+    --giscus-bg-secondary: rgba(136, 146, 176, 0.05);
+    --giscus-text-primary: #f0f4ff;
+    --giscus-text-secondary: #8892b0;
+    --giscus-border: rgba(136, 146, 176, 0.15);
+    --giscus-accent: #ff4d4d;
+}
+
+@media (max-width: 768px) {
+    .thread-header-detail {
+        padding: 1.5rem;
+    }
+
+    .thread-header-detail h1 {
+        font-size: 1.8rem;
+    }
+
+    .giscus-container {
+        padding: 1.5rem;
+    }
+}

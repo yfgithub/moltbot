@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="thread-title">Thread | Moltbot Forum</title>
+    <meta name="description" content="Discussion thread on Moltbot Forum - The AI Agent Community Hub">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px;">
+                        <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#lobster-gradient)"></path>
+                        <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#lobster-gradient)"></path>
+                        <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#lobster-gradient)"></path>
+                        <defs>
+                            <linearGradient id="lobster-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff4d4d"></stop>
+                                <stop offset="100%" stop-color="#991b1b"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    MOLTBOT Hub
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Discussions</a>
+                    <a href="#">Showcase</a>
+                    <a href="#">Guides</a>
+                    <a href="https://molt.bot" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem;">Official Site</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="thread-detail-container">
+            <!-- Back Button -->
+            <a href="index.html" class="back-button">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Back to Discussions
+            </a>
+
+            <!-- Thread Header -->
+            <div class="thread-header-detail">
+                <div class="thread-meta-detail">
+                    <div class="user-avatar" id="thread-avatar">
+                        <img src="images/mascot.png" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div>
+                        <span id="thread-author">u/MoltMaster</span> • <span id="thread-time">2 hours ago</span>
+                    </div>
+                </div>
+                <h1 id="thread-title-display">Loading thread...</h1>
+                <div class="thread-tags" id="thread-tags-display">
+                    <span class="tag">#Official</span>
+                </div>
+            </div>
+
+            <!-- Giscus Comments -->
+            <div class="giscus-container">
+                <script src="https://giscus.app/client.js"
+                        data-repo="yfgithub/moltbot"
+                        data-repo-id=""
+                        data-category="General"
+                        data-category-id=""
+                        data-mapping="pathname"
+                        data-strict="0"
+                        data-reactions-enabled="1"
+                        data-emit-metadata="0"
+                        data-input-position="bottom"
+                        data-theme="transparent_dark"
+                        data-lang="en"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2026 Moltbot Forum Community. Not affiliated with Anthropic.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem;">moltbot.forum is the central hub for the Moltbot ecosystem.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        // Get thread info from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const threadId = urlParams.get('id');
+        
+        // Thread data (in a real app, this would come from an API or database)
+        const threads = {
+            '1': {
+                title: "Moltbot v2.0 Roadmap: What's coming next?",
+                author: 'u/MoltMaster',
+                time: '2 hours ago',
+                tags: ['#Official', '#Roadmap'],
+                avatar: 'images/mascot.png'
+            },
+            '2': {
+                title: 'New Plugin: Multi-Agent coordination for marketing teams',
+                author: 'u/PluginDev',
+                time: '5 hours ago',
+                tags: ['#Showcase', '#Plugins'],
+                avatar: null
+            },
+            '3': {
+                title: 'Transitioning from Clawdbot to Moltbot: A quick migration guide',
+                author: 'u/ClawdLegacy',
+                time: '8 hours ago',
+                tags: ['#Guides'],
+                avatar: null
+            }
+        };
+
+        // Load thread data
+        if (threadId && threads[threadId]) {
+            const thread = threads[threadId];
+            document.getElementById('thread-title').textContent = thread.title + ' | Moltbot Forum';
+            document.getElementById('thread-title-display').textContent = thread.title;
+            document.getElementById('thread-author').textContent = thread.author;
+            document.getElementById('thread-time').textContent = thread.time;
+            
+            // Update tags
+            const tagsContainer = document.getElementById('thread-tags-display');
+            tagsContainer.innerHTML = thread.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            
+            // Update avatar
+            const avatarEl = document.getElementById('thread-avatar');
+            if (thread.avatar) {
+                avatarEl.innerHTML = `<img src="${thread.avatar}" alt="User" style="width: 100%; height: 100%; object-fit: cover;">`;
+            } else {
+                avatarEl.style.background = '#334155';
+                avatarEl.style.borderColor = '#94a3b8';
+            }
+        } else {
+            document.getElementById('thread-title-display').textContent = 'Thread not found';
+        }
+    </script>
+</body>
+</html>
