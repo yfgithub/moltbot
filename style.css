@@ -61,6 +61,10 @@ nav {
     align-items: center;
 }
 
+.nav-links .btn {
+    color: #ffffff;
+}
+
 .nav-links a {
     color: var(--text-muted);
     text-decoration: none;
